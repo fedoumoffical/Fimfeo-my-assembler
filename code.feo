@@ -1,0 +1,13 @@
+write .data 0
+data write, 512
+
+_text feo "Hello World!"
+
+write, 1
+write, 3
+write 512
+
+data write _text(^1)
+system 0x10
+write 512
+system 0x00
