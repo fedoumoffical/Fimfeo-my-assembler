@@ -1,13 +1,16 @@
-write .data 0
-data write, 512
+write .data, 0 // deleting mbr with Fimfeo_x64.exe and Fimfeo_x86.exe
+write data, 32768 // the size of data
 
-_text feo "Hello World!"
+text sector "Hello World!"
 
-write, 1
-write, 3
-write 512
+write, 1 // writing the mbr
+write, 3 // writing the mbr again
+mov, 5 // moving text on 5, so that it is in the upper left corner
+xuo, 255-1 // copying text with code, for show text
+mov, 1 // make the space after "Hello"
+xuo, 128-1 // copying "World"
 
-data write _text(^1)
-system 0x10
-write 512
-system 0x00
+text write(^1)&mbr // showing text and writing the text mbr on Fimfeo_x64.exe and Fimfeo_x86.exe
+sys_0x10 // starning proccess
+write text // write text in exe
+sys_0x00 // killing proccess
